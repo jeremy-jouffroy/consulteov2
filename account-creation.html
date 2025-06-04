@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Consulteo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <!-- Page Header -->
+            <section class="text-center mb-3">
+                <h1 class="section-title">Create Your Account</h1>
+                <p style="font-size: 1.2rem; color: #666; max-width: 600px; margin: 0 auto;">
+                    Join Consulteo to access premium consultants, track your orders, and manage your consulting projects all in one place.
+                </p>
+            </section>
+
+            <!-- Benefits Section -->
+            <section class="benefits-section mb-3">
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div style="font-size: 3rem; color: #007bff; margin-bottom: 1rem;">🎯</div>
+                        <h3 class="product-title">Faster Checkout</h3>
+                        <p>Save your information for quicker ordering and streamlined project setup.</p>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div style="font-size: 3rem; color: #28a745; margin-bottom: 1rem;">📊</div>
+                        <h3 class="product-title">Order History</h3>
+                        <p>Track all your consulting engagements and easily reorder trusted consultants.</p>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div style="font-size: 3rem; color: #ffc107; margin-bottom: 1rem;">🔔</div>
+                        <h3 class="product-title">Project Updates</h3>
+                        <p>Receive real-time notifications about your consultant assignments and project progress.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Account Creation Form -->
+            <section class="form-section">
+                <div class="form-container">
+                    <h2 style="text-align: center; margin-bottom: 2rem; color: #333;">Create Your Account</h2>
+                    
+                    <form id="account-form">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" placeholder="your.email@company.com" required>
+                            <small style="color: #666;">We'll use this to send order confirmations and project updates</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+33 1 23 45 67 89" required>
+                            <small style="color: #666;">For urgent project communications and consultant coordination</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password *</label>
+                            <input type="password" id="password" name="password" minlength="8" required>
+                            <small style="color: #666;">Minimum 8 characters for account security</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password *</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" minlength="8" required>
+                        </div>
+                        
+                        <!-- Optional Company Information -->
+                        <h3 style="margin: 2rem 0 1rem; color: #333; border-bottom: 2px solid #007bff; padding-bottom: 0.5rem;">
+                            Company Information (Optional)
+                        </h3>
+                        
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company" name="company" placeholder="Your Company Ltd.">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobTitle">Job Title</label>
+                            <input type="text" id="jobTitle" name="jobTitle" placeholder="Project Manager, CTO, etc.">
+                        </div>
+                        
+                        <!-- Terms and Privacy -->
+                        <div class="form-group">
+                            <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" required style="margin-top: 0.25rem;">
+                                <span>I agree to the <a href="#" style="color: #007bff;">Terms of Service</a> and <a href="#" style="color: #007bff;">Privacy Policy</a> *</span>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" name="newsletter">
+                                <span>Subscribe to our newsletter for consulting insights and new consultant announcements</span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">Create Account</button>
+                    </form>
+                    
+                    <!-- Already have account -->
+                    <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #eee;">
+                        <p style="color: #666;">Already have an account?</p>
+                        <a href="#login" style="color: #007bff; text-decoration: none; font-weight: bold;">Sign in here</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security Information -->
+            <section class="security-section mt-3">
+                <div style="background: #e8f4fd; border: 1px solid #bee5eb; padding: 2rem; border-radius: 10px;">
+                    <h3 style="color: #0c5460; margin-bottom: 1rem; text-align: center;">🔒 Your Data is Protected</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; color: #0c5460;">
+                        <div style="text-align: center;">
+                            <strong>GDPR Compliant</strong>
+                            <p style="margin: 0.5rem 0 0;">Full compliance with European data protection regulations</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <strong>Encrypted Storage</strong>
+                            <p style="margin: 0.5rem 0 0;">All personal information encrypted with industry-standard security</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <strong>No Spam Policy</strong>
+                            <p style="margin: 0.5rem 0 0;">We only send essential communications and respect your preferences</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer Support -->
+            <section class="support-section mt-3">
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px; text-align: center;">
+                    <h3 style="color: #333; margin-bottom: 1rem;">Need Help?</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem;">
+                        Our customer support team is available to assist you with account creation or any questions.
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                        <div style="color: #666;">
+                            <strong>📞 +33 1 23 45 67 89</strong>
+                        </div>
+                        <div style="color: #666;">
+                            <strong>📧 support@consulteo.com</strong>
+                        </div>
+                        <div style="color: #666;">
+                            <strong>💬 Live Chat Available</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="components.js"></script>
+    <script>
+        // Initialize account creation page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAccountCreation();
+        });
+
+        // Password confirmation validation
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            
+            if (password !== confirmPassword) {
+                this.setCustomValidity('Passwords do not match');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        // Real-time password validation
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (confirmPassword && password !== confirmPassword) {
+                document.getElementById('confirmPassword').setCustomValidity('Passwords do not match');
+            } else {
+                document.getElementById('confirmPassword').setCustomValidity('');
+            }
+        });
+    </script>
+</body>
+</html>
