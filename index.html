@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulteo - Premium Consultants for Your Projects</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Carousel -->
+        <section class="carousel">
+            <h1>Premium Consultants at Your Service</h1>
+            <p>Discover our handpicked selection of expert consultants ready to transform your business. From strategic managers to talented interns, find the perfect match for your project needs.</p>
+            <a href="#top-picks" class="btn-primary">Explore Our Consultants</a>
+        </section>
+
+        <!-- Top Picks Section -->
+        <section id="top-picks">
+            <h2 class="section-title">Top Picks of This Week</h2>
+            <div id="top-picks-grid" class="product-grid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <!-- Categories Overview -->
+        <section class="categories-overview mt-3">
+            <h2 class="section-title">Explore by Category</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div style="background: linear-gradient(135deg, #007bff, #0056b3); height: 120px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: bold;">MGR</div>
+                    <h3 class="product-title">Managers</h3>
+                    <p>Experienced project and strategic managers to lead your initiatives with expertise and vision.</p>
+                    <a href="managers.html" class="btn-view-profile">View Managers</a>
+                </div>
+                
+                <div class="product-card">
+                    <div style="background: linear-gradient(135deg, #28a745, #1e7e34); height: 120px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: bold;">LEAD</div>
+                    <h3 class="product-title">Lead Consultants</h3>
+                    <p>Senior consultants with specialized skills to guide your team and deliver exceptional results.</p>
+                    <a href="lead.html" class="btn-view-profile">View Lead Consultants</a>
+                </div>
+                
+                <div class="product-card">
+                    <div style="background: linear-gradient(135deg, #ffc107, #e0a800); height: 120px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: bold;">CON</div>
+                    <h3 class="product-title">Consultants</h3>
+                    <p>Skilled consultants ready to tackle your business challenges with fresh perspectives and proven methods.</p>
+                    <a href="consultant.html" class="btn-view-profile">View Consultants</a>
+                </div>
+                
+                <div class="product-card">
+                    <div style="background: linear-gradient(135deg, #17a2b8, #138496); height: 120px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: bold;">INT</div>
+                    <h3 class="product-title">Interns</h3>
+                    <p>Talented interns with fresh ideas and enthusiasm to support your projects at competitive rates.</p>
+                    <a href="interns.html" class="btn-view-profile">View Interns</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Consulteo -->
+        <section class="why-consulteo mt-3">
+            <h2 class="section-title">Why Choose Consulteo?</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div style="font-size: 3rem; color: #007bff; margin-bottom: 1rem;">🎯</div>
+                    <h3 class="product-title">Expertly Vetted</h3>
+                    <p>All our consultants undergo rigorous screening to ensure they meet our high standards of expertise and professionalism.</p>
+                </div>
+                
+                <div class="product-card">
+                    <div style="font-size: 3rem; color: #28a745; margin-bottom: 1rem;">⚡</div>
+                    <h3 class="product-title">Quick Deployment</h3>
+                    <p>Get your consultant matched and ready to start within 48 hours. Fast, efficient, and reliable service delivery.</p>
+                </div>
+                
+                <div class="product-card">
+                    <div style="font-size: 3rem; color: #ffc107; margin-bottom: 1rem;">🏆</div>
+                    <h3 class="product-title">Proven Results</h3>
+                    <p>Our consultants have delivered successful projects across various industries with measurable ROI and client satisfaction.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="components.js"></script>
+    <script>
+        // Initialize homepage when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeHomepage();
+        });
+    </script>
+</body>
+</html>
