@@ -1,5 +1,203 @@
 // Consulteo Components and Shared Functionality
 
+// Initialize dataLayer if not exists
+window.dataLayer = window.dataLayer || [];
+
+// Analytics Helper Functions
+class AnalyticsManager {
+  constructor() {
+    this.country = 'fr';
+    this.language = 'fr-fr';
+  }
+
+// Utility functions
+
+  // Hash email function (simple hash for demo purposes)
+  hashEmail(email) {
+    if (!email) return null;
+    let hash = 0;
+    for (let i = 0; i < email.length; i++) {
+      const char = email.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    return Math.abs(hash).toString(16);
+  }
+
+  // Get user login status and email
+  getUserData() {
+    const user = userManager.getUser();
+    return {
+      user_logged_in: !!user,
+      email: user ? this.hashEmail(user.email) : null
+    };
+  }
+
+  // Convert product to GA4 item format
+  productToItem(product, quantity = 1) {
+    return {
+      item_id: product.id,
+      item_name: `${product.firstName} ${product.lastName}`,
+      category: consulteoData.categories[product.category],
+      quantity: quantity,
+      price: product.price,
+      item_brand: 'Consulteo',
+      item_category: consulteoData.categories[product.category],
+      item_variant: product.sku
+    };
+  }
+
+  // Push page data ready event
+  pushPageDataReady(pageName, pageCategory, additionalData = {}) {
+    const userData = this.getUserData();
+    
+    window.dataLayer.push({
+      event: 'page_data_ready',
+      country: this.country,
+      language: this.language,
+      page_name: pageName,
+      page_category: pageCategory,
+      user_logged_in: userData.user_logged_in,
+      email: userData.email,
+      ...additionalData
+    });
+  }
+
+  // Push view_item_list event
+  pushViewItemList(itemListName, items) {
+    const userData = this.getUserData();
+    
+    window.dataLayer.push({
+      event: 'view_item_list',
+      item_list_name: itemListName,
+      items: items,
+      country: this.country,
+      language: this.language,
+      user_logged_in: userData.user_logged_in,
+      email: userData.email
+    });
+  }
+
+  // Push view_item event
+  pushViewItem(product) {
+    const userData = this.getUserData();
+    const item = this.productToItem(product);
+    
+    window.dataLayer.push({
+      event: 'view_item',
+      currency: 'EUR',
+      value: product.price,
+      items: [item],
+      country: this.country,
+      language: this.language,
+      user_logged_in: userData.user_logged_in,
+      email: userData.email
+    });
+  }
+
+  // Push select_item event
+  pushSelectItem(product, itemListName = '') {
+    const userData = this.getUserData();
+    const item = this.productToItem(product);
+    
+    window.dataLayer.push({
+      event: 'select_item',
+      item_list_name: itemListName,
+      items: [item],
+      country: this.country,
+      language: this.language,
+      user_logged_in: userData.user_logged_in,
+      email: userData.email
+    });
+  }
+
+  // Push add_to_cart event
+  pushAddToCart(product, quantity = 1) {
+    const userData = this.getUserData();
+    const item = this.productToItem(product, quantity);
+    
+    window.dataLayer.push({
+      event: 'add_to_cart',
+      currency: 'EUR',
+      value: product.price * quantity,
+      items: [item],
+      country: this.country,
+      language: this.language,
+      user_logged_in: userData.user_logged_in,
+      email: userData.email
+    });
+  }
+
+  // Push begin_checkout event
+  pushBeginCheckout(cartItems, totalValue) {
+    const userData = this.getUserData();
+    
+    window.dataLayer.push({
+      event: 'begin_checkout',
+      currency: 'EUR',
+      value: totalValue,
+      items: cartItems,
+      country: this.country,
+      language: this.language,
+      user_logged_in: userData.user_logged_in,
+      email: userData.email
+    });
+  }
+
+  // Push purchase event
+  pushPurchase(orderData) {
+    const userData = this.getUserData();
+    
+    window.dataLayer.push({
+      event: 'purchase',
+      transaction_id: orderData.orderNumber,
+      value: orderData.finalTotal,
+      currency: 'EUR',
+      items: orderData.cart.map(cartItem => {
+        const product = consulteoData.getProductById(cartItem.ean);
+        return this.productToItem(product, cartItem.quantity);
+      }),
+      country: this.country,
+      language: this.language,
+      user_logged_in: userData.user_logged_in,
+      email: userData.email
+    });
+  }
+
+  // Push sign_up event
+  pushSignUp(method = 'email') {
+    const userData = this.getUserData();
+    
+    window.dataLayer.push({
+      event: 'sign_up',
+      method: method,
+      country: this.country,
+      language: this.language,
+      user_logged_in: userData.user_logged_in,
+      email: userData.email
+    });
+  }
+
+  // Push view_cart event
+  pushViewCart(cartItems, totalValue) {
+    const userData = this.getUserData();
+    
+    window.dataLayer.push({
+      event: 'view_cart',
+      currency: 'EUR',
+      value: totalValue,
+      items: cartItems,
+      country: this.country,
+      language: this.language,
+      user_logged_in: userData.user_logged_in,
+      email: userData.email
+    });
+  }
+}
+
+// Global analytics instance
+const analyticsManager = new AnalyticsManager();
+
 // Cart Management
 class CartManager {
   constructor() {
@@ -135,7 +333,7 @@ function createHeader() {
           <a href="${isLoggedIn ? 'account.html' : 'account-creation.html'}" class="btn-account">
             ${isLoggedIn ? 'My Account' : 'Account'}
           </a>
-          <a href="checkout.html" class="btn-cart">
+          <a href="checkout.html" class="btn-cart" onclick="handleCartClick(event)">
             Cart
             <span class="cart-count" style="display: ${cartCount > 0 ? 'inline-block' : 'none'}">${cartCount}</span>
           </a>
@@ -143,6 +341,21 @@ function createHeader() {
       </div>
     </header>
   `;
+}
+
+// Handle cart click with analytics
+function handleCartClick(event) {
+  const cart = cartManager.getCart();
+  const cartItems = cart.map(item => {
+    const product = consulteoData.getProductById(item.ean);
+    return analyticsManager.productToItem(product, item.quantity);
+  });
+  const totalValue = cartManager.getCartTotal();
+  
+  analyticsManager.pushViewCart(cartItems, totalValue);
+  
+  // Allow normal navigation to continue
+  return true;
 }
 
 // Footer Component
@@ -178,25 +391,42 @@ function initializePage() {
 
   // Update cart count
   cartManager.updateCartCount();
+  
+  // Default analytics event (will be overridden by specific page functions)
+  setTimeout(() => {
+    // Only push if no other page_data_ready event was pushed in the last 100ms
+    if (!window.pageAnalyticsInitialized) {
+      analyticsManager.pushPageDataReady('default', 'other');
+    }
+  }, 100);
 }
 
 // Product rendering functions
-function createProductCard(product, showPrice = true) {
+function createProductCard(product, showPrice = true, itemListName = '') {
   return `
     <div class="product-card">
       <img src="${product.image}" alt="${product.firstName} ${product.lastName}" class="product-image">
       <h3 class="product-title">${product.firstName} ${product.lastName}</h3>
       <p class="product-description">${product.shortDescription}</p>
       ${showPrice ? `<div class="product-price">€${product.price}/day</div>` : ''}
-      <a href="product.html?id=${product.id}" class="btn-view-profile">View Profile</a>
+      <a href="product.html?id=${product.id}" class="btn-view-profile" onclick="handleProductClick('${product.id}', '${itemListName}')">View Profile</a>
     </div>
   `;
 }
 
-function renderProductGrid(products, containerId) {
+// Handle product click with analytics
+function handleProductClick(productId, itemListName) {
+  const product = consulteoData.getProductById(productId);
+  if (product) {
+    analyticsManager.pushSelectItem(product, itemListName);
+  }
+  return true;
+}
+
+function renderProductGrid(products, containerId, itemListName = '') {
   const container = document.getElementById(containerId);
   if (container) {
-    container.innerHTML = products.map(product => createProductCard(product)).join('');
+    container.innerHTML = products.map(product => createProductCard(product, true, itemListName)).join('');
   }
 }
 
@@ -215,7 +445,14 @@ function initializeCategoryPage(category) {
   }
   
   // Render products
-  renderProductGrid(products, 'products-grid');
+  renderProductGrid(products, 'products-grid', `${categoryTitle} Category`);
+  
+  // Push analytics events
+  analyticsManager.pushPageDataReady(`category ${category}`, 'PLP');
+  
+  // Push view_item_list event
+  const items = products.map(product => analyticsManager.productToItem(product));
+  analyticsManager.pushViewItemList(`${categoryTitle} Category`, items);
 }
 
 // Product detail page initialization
@@ -269,15 +506,28 @@ function initializeProductPage() {
   
   // Render related products
   const relatedProducts = consulteoData.getRandomProducts(3, productId);
-  renderProductGrid(relatedProducts, 'related-products-grid');
+  renderProductGrid(relatedProducts, 'related-products-grid', 'Related Consultants');
+  
+  // Push analytics events
+  analyticsManager.pushPageDataReady(`product ${product.firstName} ${product.lastName}`, 'PDP');
+  analyticsManager.pushViewItem(product);
 }
 
 // Add product to cart functionality
 function addProductToCart(ean) {
+  const product = consulteoData.getProductById(ean);
+  if (!product) {
+    showAlert('Product not found', 'error');
+    return;
+  }
+
   const success = cartManager.addToCart(ean, 1);
   if (success) {
     showAlert('Product added to cart!', 'success');
     cartManager.updateCartCount();
+    
+    // Push analytics event
+    analyticsManager.pushAddToCart(product, 1);
   } else {
     showAlert('Error adding product to cart', 'error');
   }
@@ -286,7 +536,14 @@ function addProductToCart(ean) {
 // Homepage initialization
 function initializeHomepage() {
   const topPicks = consulteoData.getTopPicks();
-  renderProductGrid(topPicks, 'top-picks-grid');
+  renderProductGrid(topPicks, 'top-picks-grid', 'Top Picks');
+  
+  // Push analytics events
+  analyticsManager.pushPageDataReady('homepage', 'home');
+  
+  // Push view_item_list event for top picks
+  const items = topPicks.map(product => analyticsManager.productToItem(product));
+  analyticsManager.pushViewItemList('Top Picks', items);
 }
 
 // Checkout page initialization
@@ -298,17 +555,24 @@ function initializeCheckoutPage() {
   if (cart.length === 0) {
     cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
     cartTotalElement.textContent = '€0';
+    
+    // Push analytics event for empty cart
+    analyticsManager.pushPageDataReady('checkout', 'checkout');
     return;
   }
   
   let cartHTML = '';
   let total = 0;
+  const cartItems = [];
   
   cart.forEach(item => {
     const product = consulteoData.getProductById(item.ean);
     if (product) {
       const itemTotal = product.price * item.quantity;
       total += itemTotal;
+      
+      // Add to analytics items array
+      cartItems.push(analyticsManager.productToItem(product, item.quantity));
       
       cartHTML += `
         <div class="cart-item">
@@ -331,6 +595,10 @@ function initializeCheckoutPage() {
   if (orderForm) {
     orderForm.onsubmit = handleOrderSubmission;
   }
+  
+  // Push analytics events
+  analyticsManager.pushPageDataReady('checkout', 'checkout');
+  analyticsManager.pushBeginCheckout(cartItems, total);
 }
 
 // Handle order submission
@@ -414,6 +682,10 @@ function initializeConfirmationPage() {
   
   orderItemsContainer.innerHTML = itemsHTML;
   
+  // Push analytics events
+  analyticsManager.pushPageDataReady('purchase confirmation', 'checkout');
+  analyticsManager.pushPurchase(orderData);
+  
   // Clean up order data
   localStorage.removeItem('consulteo_last_order');
 }
@@ -424,6 +696,9 @@ function initializeAccountCreation() {
   if (accountForm) {
     accountForm.onsubmit = handleAccountCreation;
   }
+  
+  // Push analytics event
+  analyticsManager.pushPageDataReady('account creation', 'account');
 }
 
 function handleAccountCreation(event) {
@@ -440,13 +715,57 @@ function handleAccountCreation(event) {
   userManager.saveUser(userData);
   showAlert('Account created successfully!', 'success');
   
+  // Push analytics event
+  analyticsManager.pushSignUp('email');
+  
   // Redirect after a short delay
   setTimeout(() => {
     window.location.href = 'index.html';
   }, 2000);
 }
 
-// Utility functions
+// Account page initialization  
+function initializeAccountPage() {
+  const user = userManager.getUser();
+  if (!user) {
+    window.location.href = 'account-creation.html';
+    return;
+  }
+
+  // Display user information
+  const welcomeElement = document.getElementById('user-welcome');
+  if (welcomeElement) {
+    welcomeElement.textContent = `Welcome back! Manage your consulting projects and account settings.`;
+  }
+
+  // Load user profile
+  loadUserProfile(user);
+  
+  // Push analytics event
+  analyticsManager.pushPageDataReady('account', 'account');
+}
+
+function loadUserProfile(user) {
+  const profileContainer = document.getElementById('user-profile');
+  if (profileContainer) {
+    profileContainer.innerHTML = `
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+        <div>
+          <strong>Email:</strong><br>
+          <span style="color: #666;">${user.email}</span>
+        </div>
+        <div>
+          <strong>Phone:</strong><br>
+          <span style="color: #666;">${user.phone}</span>
+        </div>
+        <div>
+          <strong>Member Since:</strong><br>
+          <span style="color: #666;">${new Date(user.createdAt).toLocaleDateString()}</span>
+        </div>
+      </div>
+    `;
+  }
+}
 function showAlert(message, type = 'info') {
   const alertDiv = document.createElement('div');
   alertDiv.className = `alert alert-${type}`;
