@@ -247,6 +247,12 @@ function initializeProductPage() {
   document.getElementById('product-price').textContent = `€${product.price}`;
   document.getElementById('product-long-description').textContent = product.longDescription;
   
+  // Set category if element exists
+  const categoryElement = document.getElementById('product-category');
+  if (categoryElement) {
+    categoryElement.textContent = consulteoData.categories[product.category];
+  }
+  
   // Render skills
   const skillsContainer = document.getElementById('product-skills');
   if (skillsContainer && product.skills) {
