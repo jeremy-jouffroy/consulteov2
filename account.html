@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Consulteo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Account Header -->
+        <section class="account-header mb-3">
+            <div style="background: linear-gradient(135deg, #007bff, #0056b3); color: white; padding: 3rem; border-radius: 10px; text-align: center;">
+                <h1 style="margin-bottom: 1rem;">Welcome to Your Account</h1>
+                <p id="user-welcome" style="font-size: 1.2rem;">Manage your consulting projects and account settings</p>
+            </div>
+        </section>
+
+        <!-- Account Navigation -->
+        <section class="account-nav mb-3">
+            <div style="background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); overflow: hidden;">
+                <div style="display: flex; flex-wrap: wrap;">
+                    <button onclick="showSection('profile')" class="account-nav-btn active" data-section="profile">
+                        👤 Profile Information
+                    </button>
+                    <button onclick="showSection('orders')" class="account-nav-btn" data-section="orders">
+                        📋 Order History
+                    </button>
+                    <button onclick="showSection('preferences')" class="account-nav-btn" data-section="preferences">
+                        ⚙️ Preferences
+                    </button>
+                    <button onclick="showSection('support')" class="account-nav-btn" data-section="support">
+                        💬 Support
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile-section" class="account-section">
+            <div class="checkout-container">
+                <div class="checkout-section">
+                    <h2>Profile Information</h2>
+                    <div id="user-profile">
+                        <!-- User profile will be dynamically loaded here -->
+                    </div>
+                    <button onclick="editProfile()" class="btn-primary mt-2">Edit Profile</button>
+                </div>
+                
+                <div class="checkout-section">
+                    <h2>Account Statistics</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 10px;">
+                            <div style="font-size: 2rem; color: #007bff; margin-bottom: 0.5rem;">0</div>
+                            <div style="color: #666;">Total Orders</div>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 10px;">
+                            <div style="font-size: 2rem; color: #28a745; margin-bottom: 0.5rem;">0</div>
+                            <div style="color: #666;">Active Projects</div>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 10px;">
+                            <div style="font-size: 2rem; color: #ffc107; margin-bottom: 0.5rem;">€0</div>
+                            <div style="color: #666;">Total Spent</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders Section -->
+        <section id="orders-section" class="account-section hidden">
+            <div class="checkout-section">
+                <h2>Order History</h2>
+                <div id="orders-list">
+                    <div style="text-align: center; padding: 3rem; color: #666;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📋</div>
+                        <h3>No Orders Yet</h3>
+                        <p>You haven't placed any orders yet. Start browsing our consultants to find the perfect match for your project.</p>
+                        <a href="index.html" class="btn-primary mt-2">Browse Consultants</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preferences Section -->
+        <section id="preferences-section" class="account-section hidden">
+            <div class="checkout-section">
+                <h2>Account Preferences</h2>
+                
+                <!-- Notification Preferences -->
+                <h3 style="margin: 2rem 0 1rem; color: #333; border-bottom: 2px solid #007bff; padding-bottom: 0.5rem;">
+                    Notification Settings
+                </h3>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox" checked>
+                        <span>Email notifications for order updates</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox" checked>
+                        <span>SMS notifications for urgent updates</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox">
+                        <span>Marketing emails and newsletter</span>
+                    </label>
+                </div>
+
+                <!-- Privacy Settings -->
+                <h3 style="margin: 2rem 0 1rem; color: #333; border-bottom: 2px solid #007bff; padding-bottom: 0.5rem;">
+                    Privacy Settings
+                </h3>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox" checked>
+                        <span>Allow profile visibility to consultants</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox">
+                        <span>Share anonymous usage data for service improvement</span>
+                    </label>
+                </div>
+
+                <button onclick="savePreferences()" class="btn-primary mt-2">Save Preferences</button>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support-section" class="account-section hidden">
+            <div class="checkout-container">
+                <div class="checkout-section">
+                    <h2>Customer Support</h2>
+                    <div class="product-grid">
+                        <div class="product-card">
+                            <div style="font-size: 3rem; color: #007bff; margin-bottom: 1rem;">📞</div>
+                            <h3 class="product-title">Phone Support</h3>
+                            <p>Speak directly with our support team for immediate assistance.</p>
+                            <div style="color: #007bff; font-weight: bold;">+33 1 23 45 67 89</div>
+                            <div style="color: #666; font-size: 0.9rem;">Mon-Fri 9AM-6PM CET</div>
+                        </div>
+                        
+                        <div class="product-card">
+                            <div style="font-size: 3rem; color: #28a745; margin-bottom: 1rem;">📧</div>
+                            <h3 class="product-title">Email Support</h3>
+                            <p>Send us your questions and we'll respond within 24 hours.</p>
+                            <div style="color: #28a745; font-weight: bold;">support@consulteo.com</div>
+                            <div style="color: #666; font-size: 0.9rem;">24/7 Response</div>
+                        </div>
+                        
+                        <div class="product-card">
+                            <div style="font-size: 3rem; color: #ffc107; margin-bottom: 1rem;">💬</div>
+                            <h3 class="product-title">Live Chat</h3>
+                            <p>Real-time chat support for quick questions and guidance.</p>
+                            <button onclick="openLiveChat()" class="btn-view-profile">Start Chat</button>
+                            <div style="color: #666; font-size: 0.9rem;">Available 9AM-6PM CET</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout-section">
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="faq-item" style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #007bff; margin-bottom: 0.5rem;">How quickly can a consultant start?</h4>
+                        <p style="color: #666;">Most consultants can begin within 24-48 hours after order confirmation. Urgent requests can often be accommodated within the same day.</p>
+                    </div>
+                    <div class="faq-item" style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #007bff; margin-bottom: 0.5rem;">What if I'm not satisfied with my consultant?</h4>
+                        <p style="color: #666;">We offer a satisfaction guarantee. If you're not completely satisfied within the first week, we'll provide a replacement consultant at no additional cost.</p>
+                    </div>
+                    <div class="faq-item" style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #007bff; margin-bottom: 0.5rem;">Can I extend a consultant's assignment?</h4>
+                        <p style="color: #666;">Yes, you can extend assignments based on consultant availability. Contact us to arrange extensions or additional services.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions mt-3">
+            <h2 class="section-title">Quick Actions</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div style="font-size: 3rem; color: #007bff; margin-bottom: 1rem;">🛒</div>
+                    <h3 class="product-title">Browse Consultants</h3>
+                    <p>Explore our marketplace to find the perfect consultant for your next project.</p>
+                    <a href="index.html" class="btn-view-profile">Start Browsing</a>
+                </div>
+                
+                <div class="product-card">
+                    <div style="font-size: 3rem; color: #28a745; margin-bottom: 1rem;">🔄</div>
+                    <h3 class="product-title">Reorder Consultant</h3>
+                    <p>Quickly rehire a consultant you've worked with before for new projects.</p>
+                    <button onclick="showReorderOptions()" class="btn-view-profile">View Options</button>
+                </div>
+                
+                <div class="product-card">
+                    <div style="font-size: 3rem; color: #ffc107; margin-bottom: 1rem;">📝</div>
+                    <h3 class="product-title">Request Quote</h3>
+                    <p>Need a custom consulting solution? Get a personalized quote for your specific needs.</p>
+                    <button onclick="requestQuote()" class="btn-view-profile">Request Quote</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logout Section -->
+        <section class="logout-section text-center mt-3">
+            <button onclick="logoutUser()" class="btn-submit" style="background: #dc3545; max-width: 200px;">
+                Logout
+            </button>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="components.js"></script>
+    <script>
+        // Initialize account page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAccountPage();
+        });
+
+        function initializeAccountPage() {
+            const user = userManager.getUser();
+            if (!user) {
+                window.location.href = 'account-creation.html';
+                return;
+            }
+
+            // Display user information
+            const welcomeElement = document.getElementById('user-welcome');
+            if (welcomeElement) {
+                welcomeElement.textContent = `Welcome back! Manage your consulting projects and account settings.`;
+            }
+
+            // Load user profile
+            loadUserProfile(user);
+        }
+
+        function loadUserProfile(user) {
+            const profileContainer = document.getElementById('user-profile');
+            if (profileContainer) {
+                profileContainer.innerHTML = `
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                        <div>
+                            <strong>Email:</strong><br>
+                            <span style="color: #666;">${user.email}</span>
+                        </div>
+                        <div>
+                            <strong>Phone:</strong><br>
+                            <span style="color: #666;">${user.phone}</span>
+                        </div>
+                        <div>
+                            <strong>Member Since:</strong><br>
+                            <span style="color: #666;">${new Date(user.createdAt).toLocaleDateString()}</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.account-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.account-nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionName + '-section').classList.remove('hidden');
+
+            // Add active class to clicked button
+            document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+        }
+
+        function editProfile() {
+            alert('Profile editing functionality would be implemented here. For now, please contact support to update your profile information.');
+        }
+
+        function savePreferences() {
+            showAlert('Preferences saved successfully!', 'success');
+        }
+
+        function openLiveChat() {
+            alert('Live chat would open here. For now, please contact us at support@consulteo.com or call +33 1 23 45 67 89');
+        }
+
+        function showReorderOptions() {
+            alert('Reorder functionality would show your previous consultants here. Since this is a demo, please browse our consultant marketplace instead.');
+            window.location.href = 'index.html';
+        }
+
+        function requestQuote() {
+            alert('Custom quote request form would open here. For now, please contact support@consulteo.com with your requirements.');
+        }
+
+        function logoutUser() {
+            if (confirm('Are you sure you want to logout?')) {
+                userManager.logout();
+                showAlert('You have been logged out successfully.', 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }
+        }
+    </script>
+
+    <style>
+        .account-nav-btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 1rem;
+            border: none;
+            background: white;
+            color: #666;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .account-nav-btn:hover {
+            background: #f8f9fa;
+            color: #007bff;
+        }
+
+        .account-nav-btn.active {
+            color: #007bff;
+            border-bottom-color: #007bff;
+            background: #f8f9fa;
+        }
+
+        .account-section {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</body>
+</html>
