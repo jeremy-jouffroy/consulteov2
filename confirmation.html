@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - Consulteo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="confirmation-container">
+            <!-- Success Icon -->
+            <div class="confirmation-icon">✅</div>
+            
+            <!-- Thank You Message -->
+            <h1 style="color: #28a745; font-size: 2.5rem; margin-bottom: 1rem;">Thank You!</h1>
+            <p style="font-size: 1.2rem; color: #666; margin-bottom: 2rem;">
+                Your order has been successfully placed and our team is already preparing your consultant assignment.
+            </p>
+
+            <!-- Order Details -->
+            <div class="checkout-section" style="max-width: 600px; margin: 0 auto;">
+                <h2>Order Details</h2>
+                
+                <div class="order-number">
+                    Order #<span id="order-number">0000</span>
+                </div>
+                
+                <div id="order-items" style="margin: 2rem 0;">
+                    <!-- Order items will be dynamically loaded here -->
+                </div>
+                
+                <div class="cart-total">
+                    Final Total: <span id="order-total">€0</span>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <section class="next-steps mt-3">
+                <h2 class="section-title">What Happens Next?</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div style="font-size: 3rem; color: #007bff; margin-bottom: 1rem;">📧</div>
+                        <h3 class="product-title">Confirmation Email</h3>
+                        <p>You'll receive a detailed confirmation email within the next 5 minutes with all order information and next steps.</p>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div style="font-size: 3rem; color: #28a745; margin-bottom: 1rem;">👤</div>
+                        <h3 class="product-title">Consultant Assignment</h3>
+                        <p>Your consultant will be briefed and ready to start within 24-48 hours. They'll contact you directly to schedule the kickoff.</p>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div style="font-size: 3rem; color: #ffc107; margin-bottom: 1rem;">🚀</div>
+                        <h3 class="product-title">Project Kickoff</h3>
+                        <p>Your project will begin as scheduled. Our support team will follow up to ensure everything goes smoothly.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Information -->
+            <section class="contact-info mt-3">
+                <div style="background: linear-gradient(135deg, #007bff, #0056b3); color: white; padding: 2rem; border-radius: 10px; text-align: center;">
+                    <h3 style="margin-bottom: 1rem;">Need Help?</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        Our customer success team is here to support you throughout your consulting engagement.
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                        <div>
+                            <strong>📞 Phone:</strong><br>
+                            +33 1 23 45 67 89
+                        </div>
+                        <div>
+                            <strong>📧 Email:</strong><br>
+                            support@consulteo.com
+                        </div>
+                        <div>
+                            <strong>💬 Live Chat:</strong><br>
+                            Available 9AM-6PM CET
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important Information -->
+            <section class="important-info mt-3">
+                <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 2rem; border-radius: 10px;">
+                    <h3 style="color: #856404; margin-bottom: 1rem;">📝 Important Information</h3>
+                    <ul style="color: #856404; margin: 0; padding-left: 1.5rem;">
+                        <li style="margin-bottom: 0.5rem;">Please keep your order number for reference: <strong id="order-number-ref">0000</strong></li>
+                        <li style="margin-bottom: 0.5rem;">Billing will commence as per the payment terms selected during checkout</li>
+                        <li style="margin-bottom: 0.5rem;">Any changes to the order must be requested within 24 hours</li>
+                        <li style="margin-bottom: 0.5rem;">Your consultant assignment confirmation will include detailed project guidelines</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Continue Shopping -->
+            <section class="continue-shopping mt-3 text-center">
+                <h3 style="margin-bottom: 1rem;">Need Additional Consultants?</h3>
+                <p style="color: #666; margin-bottom: 2rem;">
+                    Expand your team with additional expertise from our consultant marketplace.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <a href="index.html" class="btn-primary">Browse All Consultants</a>
+                    <a href="managers.html" class="btn-view-profile">View Managers</a>
+                    <a href="lead.html" class="btn-view-profile">View Lead Consultants</a>
+                </div>
+            </section>
+
+            <!-- Feedback Request -->
+            <section class="feedback-section mt-3">
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px; text-align: center;">
+                    <h3 style="color: #333; margin-bottom: 1rem;">Help Us Improve</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem;">
+                        Your experience matters to us. Share your feedback to help us serve you better.
+                    </p>
+                    <button onclick="showFeedbackForm()" class="btn-primary">Share Feedback</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="components.js"></script>
+    <script>
+        // Initialize confirmation page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeConfirmationPage();
+        });
+
+        function showFeedbackForm() {
+            alert('Thank you for your interest in providing feedback! Our customer success team will contact you within 24 hours to gather your thoughts.');
+        }
+
+        // Auto-scroll to top on page load
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+    </script>
+</body>
+</html>
