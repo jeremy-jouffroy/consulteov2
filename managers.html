@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Managers - Consulteo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Category Header -->
+        <section class="category-header">
+            <h1 class="category-title">Managers</h1>
+            <p class="category-description">
+                Our experienced managers bring strategic vision and proven leadership to your most critical projects. 
+                With expertise spanning digital transformation, business optimization, and organizational change, 
+                they deliver results that drive sustainable growth and operational excellence.
+            </p>
+        </section>
+
+        <!-- Products Grid -->
+        <section class="products-section">
+            <div id="products-grid" class="product-grid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <!-- Category Benefits -->
+        <section class="category-benefits mt-3">
+            <h2 class="section-title">What Our Managers Bring</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div style="font-size: 3rem; color: #007bff; margin-bottom: 1rem;">📊</div>
+                    <h3 class="product-title">Strategic Leadership</h3>
+                    <p>Proven ability to develop and execute strategic initiatives that align with business objectives and drive measurable results.</p>
+                </div>
+                
+                <div class="product-card">
+                    <div style="font-size: 3rem; color: #28a745; margin-bottom: 1rem;">👥</div>
+                    <h3 class="product-title">Team Management</h3>
+                    <p>Expert in building, leading, and motivating high-performing teams across diverse business functions and cultures.</p>
+                </div>
+                
+                <div class="product-card">
+                    <div style="font-size: 3rem; color: #ffc107; margin-bottom: 1rem;">🔄</div>
+                    <h3 class="product-title">Change Leadership</h3>
+                    <p>Specialized in guiding organizations through complex transformations while ensuring minimal disruption to operations.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section text-center mt-3">
+            <div style="background: linear-gradient(135deg, #007bff, #0056b3); color: white; padding: 3rem; border-radius: 10px;">
+                <h2 style="margin-bottom: 1rem;">Ready to Transform Your Business?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                    Our managers are ready to lead your next strategic initiative. Contact us today to discuss your project requirements.
+                </p>
+                <a href="checkout.html" class="btn-primary">Get Started</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="components.js"></script>
+    <script>
+        // Initialize managers page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCategoryPage('managers');
+        });
+    </script>
+</body>
+</html>
