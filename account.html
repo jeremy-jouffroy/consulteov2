@@ -232,45 +232,6 @@
             initializeAccountPage();
         });
 
-        function initializeAccountPage() {
-            const user = userManager.getUser();
-            if (!user) {
-                window.location.href = 'account-creation.html';
-                return;
-            }
-
-            // Display user information
-            const welcomeElement = document.getElementById('user-welcome');
-            if (welcomeElement) {
-                welcomeElement.textContent = `Welcome back! Manage your consulting projects and account settings.`;
-            }
-
-            // Load user profile
-            loadUserProfile(user);
-        }
-
-        function loadUserProfile(user) {
-            const profileContainer = document.getElementById('user-profile');
-            if (profileContainer) {
-                profileContainer.innerHTML = `
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                        <div>
-                            <strong>Email:</strong><br>
-                            <span style="color: #666;">${user.email}</span>
-                        </div>
-                        <div>
-                            <strong>Phone:</strong><br>
-                            <span style="color: #666;">${user.phone}</span>
-                        </div>
-                        <div>
-                            <strong>Member Since:</strong><br>
-                            <span style="color: #666;">${new Date(user.createdAt).toLocaleDateString()}</span>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
         function showSection(sectionName) {
             // Hide all sections
             document.querySelectorAll('.account-section').forEach(section => {
