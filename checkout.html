@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Consulteo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="section-title">Checkout</h1>
+        
+        <div class="checkout-container">
+            <!-- Order Summary -->
+            <div class="checkout-section">
+                <h2>Order Summary</h2>
+                <div id="cart-items">
+                    <!-- Cart items will be dynamically loaded here -->
+                </div>
+                <div class="cart-total">
+                    Total: <span id="cart-total">€0</span>
+                </div>
+            </div>
+
+            <!-- Order Form -->
+            <div class="checkout-section">
+                <form id="order-form">
+                    <!-- About You Section -->
+                    <h2>About You</h2>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password *</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+
+                    <!-- Delivery Address Section -->
+                    <h2 style="margin-top: 2rem;">Delivery Address</h2>
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address *</label>
+                        <input type="text" id="address" name="address" placeholder="Street address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City *</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="postalCode">Postal Code *</label>
+                        <input type="text" id="postalCode" name="postalCode" pattern="[0-9]{5}" placeholder="75001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+33 1 23 45 67 89" required>
+                    </div>
+
+                    <!-- Shipping Options -->
+                    <h2 style="margin-top: 2rem;">Shipping Options</h2>
+                    <div class="shipping-option">
+                        <input type="radio" id="office-delivery" name="shipping" value="office" required>
+                        <label for="office-delivery">
+                            <div>
+                                <strong>Office Delivery</strong>
+                                <p>Consultant will be delivered to your office location</p>
+                            </div>
+                            <div style="margin-left: auto; font-weight: bold; color: #007bff;">€100</div>
+                        </label>
+                    </div>
+                    <div class="shipping-option">
+                        <input type="radio" id="pickup-converteo" name="shipping" value="pickup" required>
+                        <label for="pickup-converteo">
+                            <div>
+                                <strong>Pick up at Converteo Office</strong>
+                                <p>Collect your consultant from our Paris office</p>
+                            </div>
+                            <div style="margin-left: auto; font-weight: bold; color: #28a745;">Free</div>
+                        </label>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <h2 style="margin-top: 2rem;">Payment Method</h2>
+                    <div class="payment-option">
+                        <input type="radio" id="payment-90days" name="payment" value="90days" required>
+                        <label for="payment-90days">
+                            <div>
+                                <strong>90 Days End of Month</strong>
+                                <p>Payment due 90 days from end of month of service delivery</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="payment-wire" name="payment" value="wire" required>
+                        <label for="payment-wire">
+                            <div>
+                                <strong>Wire Transfer</strong>
+                                <p>Direct bank transfer - payment instructions will be provided</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Order Button -->
+                    <button type="submit" class="btn-submit" style="margin-top: 2rem;">
+                        Order Now
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Additional Information -->
+        <section class="additional-info mt-3">
+            <div style="background: #e9ecef; padding: 2rem; border-radius: 10px;">
+                <h3 style="color: #007bff; margin-bottom: 1rem;">📋 What Happens Next?</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                    <div>
+                        <h4>1. Order Confirmation</h4>
+                        <p>You'll receive an immediate confirmation with your order details and reference number.</p>
+                    </div>
+                    <div>
+                        <h4>2. Consultant Briefing</h4>
+                        <p>Your selected consultant will be briefed on your project requirements within 24 hours.</p>
+                    </div>
+                    <div>
+                        <h4>3. Project Kickoff</h4>
+                        <p>Direct contact will be established and work can begin as per your preferred schedule.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Notice -->
+        <section class="security-notice mt-2">
+            <div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 1.5rem; border-radius: 10px; text-align: center;">
+                <h4 style="color: #155724; margin-bottom: 0.5rem;">🔒 Your Information is Secure</h4>
+                <p style="color: #155724; margin: 0;">All personal and payment information is encrypted and handled according to GDPR compliance standards.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="components.js"></script>
+    <script>
+        // Initialize checkout page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCheckoutPage();
+        });
+
+        // Update total when shipping method changes
+        document.addEventListener('change', function(e) {
+            if (e.target.name === 'shipping') {
+                updateTotalWithShipping();
+            }
+        });
+
+        function updateTotalWithShipping() {
+            const cartTotal = cartManager.getCartTotal();
+            const shippingRadio = document.querySelector('input[name="shipping"]:checked');
+            const cartTotalElement = document.getElementById('cart-total');
+            
+            if (cartTotalElement && shippingRadio) {
+                let shippingCost = 0;
+                if (shippingRadio.value === 'office') {
+                    shippingCost = 100;
+                }
+                
+                const finalTotal = cartTotal + shippingCost;
+                cartTotalElement.innerHTML = `
+                    <div>Subtotal: €${cartTotal}</div>
+                    <div>Shipping: €${shippingCost}</div>
+                    <hr style="margin: 0.5rem 0;">
+                    <div style="font-size: 1.2em;">Total: €${finalTotal}</div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
