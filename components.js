@@ -1,4 +1,4 @@
-// Consulteo Components and Shared Functionality
+// Consulteo Components and Shared Functionality v73
 
 // Initialize dataLayer if not exists
 window.dataLayer = window.dataLayer || [];
