@@ -793,4 +793,18 @@ function formatPrice(price) {
 }
 
 // Initialize page when DOM is loaded
-document.addEventListener('DOMContentLoaded', initializePage);
+document.addEventListener('DOMContentLoaded', function() {
+  initializePage();
+  
+  // Auto-detect checkout page and initialize it
+  if (window.location.pathname.includes('checkout.html') || document.getElementById('cart-items')) {
+    console.log('🛒 Checkout page detected, initializing...');
+    setTimeout(initializeCheckoutPage, 100);
+  }
+});
+
+// Test function to force checkout initialization
+window.forceCheckoutInit = function() {
+  console.log('🔧 Forcing checkout initialization...');
+  initializeCheckoutPage();
+};
