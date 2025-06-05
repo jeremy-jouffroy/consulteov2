@@ -201,26 +201,43 @@ const analyticsManager = new AnalyticsManager();
 // Cart Management
 class CartManager {
   constructor() {
+    console.log('=== CART MANAGER INIT ===');
     this.cart = this.loadCart();
+    console.log('Cart loaded on init:', this.cart);
   }
 
   loadCart() {
     const saved = localStorage.getItem('consulteo_cart');
-    return saved ? JSON.parse(saved) : [];
+    console.log('Loading cart from localStorage:', saved);
+    const parsed = saved ? JSON.parse(saved) : [];
+    console.log('Parsed cart:', parsed);
+    return parsed;
   }
 
   saveCart() {
+    console.log('Saving cart:', this.cart);
     localStorage.setItem('consulteo_cart', JSON.stringify(this.cart));
+    console.log('Cart saved to localStorage:', localStorage.getItem('consulteo_cart'));
     this.updateCartCount();
   }
 
   addToCart(productId, quantity = 1) {
+    console.log(`Adding to cart: productId=${productId}, quantity=${quantity}`);
+    console.log('Current cart before add:', this.cart);
+    
     const existingItem = this.cart.find(item => item.productId === productId);
+    console.log('Existing item found:', existingItem);
+    
     if (existingItem) {
       existingItem.quantity += quantity;
+      console.log('Updated existing item:', existingItem);
     } else {
-      this.cart.push({ productId, quantity });
+      const newItem = { productId, quantity };
+      this.cart.push(newItem);
+      console.log('Added new item:', newItem);
     }
+    
+    console.log('Cart after add:', this.cart);
     this.saveCart();
     return true;
   }
@@ -243,11 +260,14 @@ class CartManager {
   }
 
   getCart() {
+    console.log('Getting cart, current value:', this.cart);
     return this.cart;
   }
 
   getCartCount() {
-    return this.cart.reduce((total, item) => total + item.quantity, 0);
+    const count = this.cart.reduce((total, item) => total + item.quantity, 0);
+    console.log('Cart count:', count);
+    return count;
   }
 
   clearCart() {
@@ -261,6 +281,7 @@ class CartManager {
       const count = this.getCartCount();
       cartCountElement.textContent = count;
       cartCountElement.style.display = count > 0 ? 'inline-block' : 'none';
+      console.log('Updated cart count display:', count);
     }
   }
 
@@ -507,14 +528,22 @@ function initializeProductPage() {
 
 // Add product to cart functionality
 function addProductToCart(productId) {
+  console.log('=== ADD TO CART DEBUG ===');
+  console.log('Product ID:', productId);
+  
   const product = consulteoData.getProductById(productId);
+  console.log('Product found:', product);
   
   if (!product) {
     showAlert('Product not found', 'error');
     return;
   }
 
+  console.log('Cart before add:', cartManager.getCart());
   const success = cartManager.addToCart(productId, 1);
+  console.log('Add to cart success:', success);
+  console.log('Cart after add:', cartManager.getCart());
+  console.log('localStorage cart:', localStorage.getItem('consulteo_cart'));
   
   if (success) {
     showAlert('Product added to cart!', 'success');
@@ -783,3 +812,21 @@ function formatPrice(price) {
 
 // Initialize page when DOM is loaded
 document.addEventListener('DOMContentLoaded', initializePage);
+
+// Debug function for testing cart state
+window.debugCart = function() {
+  console.log('=== CART DEBUG INFO ===');
+  console.log('localStorage cart:', localStorage.getItem('consulteo_cart'));
+  console.log('cartManager.cart:', cartManager.cart);
+  console.log('cartManager.getCart():', cartManager.getCart());
+  console.log('cartManager.getCartCount():', cartManager.getCartCount());
+  console.log('cartManager.getCartTotal():', cartManager.getCartTotal());
+  
+  // Test cart functionality
+  console.log('=== TESTING CART OPERATIONS ===');
+  console.log('Available products:');
+  Object.keys(consulteoData.products).forEach(id => {
+    const product = consulteoData.products[id];
+    console.log(`- ${id}: ${product.firstName} ${product.lastName}`);
+  });
+};
