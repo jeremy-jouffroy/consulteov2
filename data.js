@@ -338,6 +338,10 @@ const consulteoData = {
     return this.products[id];
   },
 
+  getProductByEan: function(ean) {
+    return Object.values(this.products).find(product => product.ean === ean);
+  },
+
   getRandomProducts: function(count = 3, excludeId = null) {
     const allProducts = Object.values(this.products);
     const filteredProducts = excludeId ? 
