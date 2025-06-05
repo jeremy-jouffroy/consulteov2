@@ -154,7 +154,7 @@ class AnalyticsManager {
       value: orderData.finalTotal,
       currency: 'EUR',
       items: orderData.cart.map(cartItem => {
-        const product = consulteoData.getProductByEan(cartItem.ean);
+        const product = consulteoData.getProductById(cartItem.productId);
         return this.productToItem(product, cartItem.quantity);
       }),
       country: this.country,
@@ -214,28 +214,28 @@ class CartManager {
     this.updateCartCount();
   }
 
-  addToCart(ean, quantity = 1) {
-    const existingItem = this.cart.find(item => item.ean === ean);
+  addToCart(productId, quantity = 1) {
+    const existingItem = this.cart.find(item => item.productId === productId);
     if (existingItem) {
       existingItem.quantity += quantity;
     } else {
-      this.cart.push({ ean, quantity });
+      this.cart.push({ productId, quantity });
     }
     this.saveCart();
     return true;
   }
 
-  removeFromCart(ean) {
-    this.cart = this.cart.filter(item => item.ean !== ean);
+  removeFromCart(productId) {
+    this.cart = this.cart.filter(item => item.productId !== productId);
     this.saveCart();
   }
 
-  updateQuantity(ean, quantity) {
-    const item = this.cart.find(item => item.ean === ean);
+  updateQuantity(productId, quantity) {
+    const item = this.cart.find(item => item.productId === productId);
     if (item) {
       item.quantity = quantity;
       if (quantity <= 0) {
-        this.removeFromCart(ean);
+        this.removeFromCart(productId);
       } else {
         this.saveCart();
       }
@@ -267,7 +267,7 @@ class CartManager {
   getCartTotal() {
     let total = 0;
     this.cart.forEach(item => {
-      const product = consulteoData.getProductByEan(item.ean);
+      const product = consulteoData.getProductById(item.productId);
       if (product) {
         total += product.price * item.quantity;
       }
@@ -347,7 +347,7 @@ function createHeader() {
 function handleCartClick(event) {
   const cart = cartManager.getCart();
   const cartItems = cart.map(item => {
-    const product = consulteoData.getProductByEan(item.ean);
+    const product = consulteoData.getProductById(item.productId);
     return analyticsManager.productToItem(product, item.quantity);
   });
   const totalValue = cartManager.getCartTotal();
@@ -493,7 +493,7 @@ function initializeProductPage() {
   // Set up add to cart functionality
   const addToCartBtn = document.getElementById('add-to-cart-btn');
   if (addToCartBtn) {
-    addToCartBtn.onclick = () => addProductToCart(product.ean);
+    addToCartBtn.onclick = () => addProductToCart(product.id);
   }
   
   // Render related products
@@ -506,14 +506,16 @@ function initializeProductPage() {
 }
 
 // Add product to cart functionality
-function addProductToCart(ean) {
-  const product = consulteoData.getProductByEan(ean);
+function addProductToCart(productId) {
+  const product = consulteoData.getProductById(productId);
+  
   if (!product) {
     showAlert('Product not found', 'error');
     return;
   }
 
-  const success = cartManager.addToCart(ean, 1);
+  const success = cartManager.addToCart(productId, 1);
+  
   if (success) {
     showAlert('Product added to cart!', 'success');
     cartManager.updateCartCount();
