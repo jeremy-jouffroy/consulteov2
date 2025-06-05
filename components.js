@@ -829,4 +829,4 @@ window.debugCart = function() {
     const product = consulteoData.products[id];
     console.log(`- ${id}: ${product.firstName} ${product.lastName}`);
   });
-};   
+};
