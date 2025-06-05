@@ -803,8 +803,85 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+// Working checkout initialization function
+function workingCheckoutInit() {
+  console.log('🚀 Working checkout init started');
+  window.pageAnalyticsInitialized = true;
+  
+  const cart = cartManager.getCart();
+  console.log('Cart retrieved:', cart);
+  
+  const cartItemsContainer = document.getElementById('cart-items');
+  const cartTotalElement = document.getElementById('cart-total');
+  
+  if (!cartItemsContainer || !cartTotalElement) {
+    console.error('DOM elements not found');
+    return;
+  }
+  
+  if (cart.length === 0) {
+    cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+    cartTotalElement.textContent = '€0';
+    analyticsManager.pushPageDataReady('checkout', 'checkout');
+    return;
+  }
+  
+  let cartHTML = '';
+  let total = 0;
+  const cartItems = [];
+  
+  cart.forEach(item => {
+    const product = consulteoData.products[item.productId];
+    
+    if (product) {
+      const itemTotal = product.price * item.quantity;
+      total += itemTotal;
+      
+      cartItems.push({
+        item_id: product.ean,
+        item_name: `${product.firstName} ${product.lastName}`,
+        item_category: product.category,
+        price: product.price,
+        quantity: item.quantity
+      });
+      
+      cartHTML += `
+        <div class="cart-item">
+          <div>
+            <h4>${product.firstName} ${product.lastName}</h4>
+            <p>EAN: ${product.ean}</p>
+            <p>Quantity: ${item.quantity}</p>
+          </div>
+          <div class="item-total">€${itemTotal}</div>
+        </div>
+      `;
+    }
+  });
+  
+  console.log('Updating DOM with cart:', cartItems);
+  cartItemsContainer.innerHTML = cartHTML;
+  cartTotalElement.textContent = `€${total}`;
+  
+  // Set up form submission
+  const orderForm = document.getElementById('order-form');
+  if (orderForm) {
+    orderForm.onsubmit = handleOrderSubmission;
+  }
+  
+  console.log('Pushing analytics...');
+  analyticsManager.pushPageDataReady('checkout', 'checkout');
+  analyticsManager.pushBeginCheckout(cartItems, total);
+  
+  console.log('✅ Working checkout init completed!');
+}
+
+// Replace the broken function
+function initializeCheckoutPage() {
+  workingCheckoutInit();
+}
+
 // Test function to force checkout initialization
 window.forceCheckoutInit = function() {
   console.log('🔧 Forcing checkout initialization...');
-  initializeCheckoutPage();
+  workingCheckoutInit();
 };
