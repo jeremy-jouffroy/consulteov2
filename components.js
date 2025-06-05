@@ -154,7 +154,7 @@ class AnalyticsManager {
       value: orderData.finalTotal,
       currency: 'EUR',
       items: orderData.cart.map(cartItem => {
-        const product = consulteoData.getProductById(cartItem.ean);
+        const product = consulteoData.getProductByEan(cartItem.ean);
         return this.productToItem(product, cartItem.quantity);
       }),
       country: this.country,
@@ -267,7 +267,7 @@ class CartManager {
   getCartTotal() {
     let total = 0;
     this.cart.forEach(item => {
-      const product = consulteoData.getProductById(item.ean);
+      const product = consulteoData.getProductByEan(item.ean);
       if (product) {
         total += product.price * item.quantity;
       }
@@ -347,7 +347,7 @@ function createHeader() {
 function handleCartClick(event) {
   const cart = cartManager.getCart();
   const cartItems = cart.map(item => {
-    const product = consulteoData.getProductById(item.ean);
+    const product = consulteoData.getProductByEan(item.ean);
     return analyticsManager.productToItem(product, item.quantity);
   });
   const totalValue = cartManager.getCartTotal();
@@ -391,14 +391,6 @@ function initializePage() {
 
   // Update cart count
   cartManager.updateCartCount();
-  
-  // Default analytics event (will be overridden by specific page functions)
-  setTimeout(() => {
-    // Only push if no other page_data_ready event was pushed in the last 100ms
-    if (!window.pageAnalyticsInitialized) {
-      analyticsManager.pushPageDataReady('default', 'other');
-    }
-  }, 100);
 }
 
 // Product rendering functions
@@ -515,7 +507,7 @@ function initializeProductPage() {
 
 // Add product to cart functionality
 function addProductToCart(ean) {
-  const product = consulteoData.getProductById(ean);
+  const product = consulteoData.getProductByEan(ean);
   if (!product) {
     showAlert('Product not found', 'error');
     return;
